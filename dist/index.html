@@ -126,6 +126,13 @@
     .search-btn { width: 100%; margin-top: 11px; padding: 14px; border: 0; border-radius: 13px; background: var(--teal); color: #fff; font-weight: 800; cursor: pointer; }
     .search-btn:hover { background: var(--teal-dark); }
     .planner-note { display: flex; align-items: center; justify-content: center; gap: 7px; margin: 12px 0 0; color: var(--muted); font-size: 12px; }
+    .planner-note::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #28a56a; box-shadow: 0 0 0 4px rgba(40,165,106,.12); }
+    .field input[type="date"] { min-height: 24px; }
+    .field:focus-within { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(10,132,123,.11); }
+    .search-btn { display: flex; align-items: center; justify-content: center; gap: 9px; }
+    .search-btn:disabled { cursor: wait; opacity: .72; }
+    .search-spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.35); border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
     .floating-card { position: absolute; border-radius: 17px; background: #fff; color: var(--ink); box-shadow: var(--shadow); }
     .route-badge { right: -32px; bottom: -42px; padding: 14px 17px; display: flex; align-items: center; gap: 12px; }
     .route-badge span { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 12px; color: var(--teal); background: #dff6f0; }
@@ -139,6 +146,42 @@
     .quick-icon { width: 43px; height: 43px; flex: 0 0 43px; display: grid; place-items: center; border-radius: 13px; color: var(--teal); background: #e6f4f1; }
     .quick-item strong { display: block; font-size: 15px; }
     .quick-item small { color: var(--muted); font-size: 12px; }
+
+    .flight-results { padding: 86px 0 24px; background: var(--paper); }
+    .flight-results[hidden] { display: none; }
+    .results-head { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 25px; }
+    .results-head h2 { margin: 7px 0 0; font-size: clamp(34px, 4vw, 50px); }
+    .results-meta { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 13px; }
+    .live-pill { display: inline-flex; align-items: center; gap: 7px; padding: 8px 12px; border-radius: 999px; color: #096047; background: #dff3ea; font-size: 12px; font-weight: 800; }
+    .live-pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #18a56f; }
+    .sort-select { padding: 10px 34px 10px 13px; border: 1px solid var(--line); border-radius: 11px; color: var(--ink); background: #fff; font-size: 13px; font-weight: 700; }
+    .results-list { display: grid; gap: 13px; }
+    .flight-card { display: grid; grid-template-columns: minmax(150px,.7fr) minmax(360px,2fr) minmax(145px,.65fr); align-items: center; gap: 22px; padding: 22px; border: 1px solid var(--line); border-radius: 20px; background: #fff; box-shadow: 0 10px 35px rgba(5,34,48,.06); }
+    .airline { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .airline-logo { width: 45px; height: 45px; display: grid; place-items: center; flex: 0 0 45px; border-radius: 12px; color: #fff; background: var(--navy); font-weight: 800; }
+    .airline strong, .airline small { display: block; }
+    .airline strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; }
+    .airline small { color: var(--muted); font-size: 11px; }
+    .slice-list { display: grid; gap: 13px; }
+    .flight-slice { display: grid; grid-template-columns: 76px 1fr 76px; align-items: center; gap: 12px; }
+    .flight-time strong { display: block; font-size: 18px; line-height: 1.1; }
+    .flight-time small { color: var(--muted); font-size: 11px; }
+    .route-line { text-align: center; color: var(--muted); font-size: 11px; }
+    .route-rule { height: 1px; position: relative; margin: 5px 0; background: #cdd8da; }
+    .route-rule::before, .route-rule::after { content: ""; position: absolute; top: -3px; width: 7px; height: 7px; border-radius: 50%; background: var(--teal); }
+    .route-rule::before { left: 0; } .route-rule::after { right: 0; }
+    .fare { padding-left: 22px; border-left: 1px solid var(--line); text-align: right; }
+    .fare small { display: block; color: var(--muted); font-size: 11px; }
+    .fare strong { display: block; margin: 2px 0 10px; color: var(--navy); font-family: "DM Serif Display"; font-size: 27px; font-weight: 400; }
+    .choose-fare { width: 100%; padding: 11px 13px; border: 0; border-radius: 11px; color: #fff; background: var(--teal); font-size: 12px; font-weight: 800; cursor: pointer; }
+    .choose-fare:hover { background: var(--teal-dark); }
+    .fare-note { margin: 18px 0 0; color: var(--muted); font-size: 12px; text-align: center; }
+    .results-state { padding: 35px; border: 1px solid var(--line); border-radius: 20px; background: #fff; text-align: center; }
+    .results-state h3 { margin-bottom: 7px; }
+    .results-state p { max-width: 570px; margin: 0 auto; color: var(--muted); font-size: 14px; }
+    .results-state a { color: var(--teal); font-weight: 800; }
+    .skeleton-card { height: 132px; border-radius: 20px; background: linear-gradient(90deg,#fff 25%,#edf1ef 50%,#fff 75%); background-size: 200% 100%; animation: shimmer 1.3s infinite; }
+    @keyframes shimmer { to { background-position: -200% 0; } }
 
     .packages { background: var(--paper); }
     .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin: -10px 0 30px; }
@@ -240,6 +283,10 @@
       .contact-buttons a { flex: 1; }
       .footer-main { grid-template-columns: 1.4fr 1fr 1fr; }
       .footer-main > :last-child { grid-column: 1 / -1; }
+      .flight-card { grid-template-columns: 1fr 2fr; }
+      .fare { grid-column: 1 / -1; display: flex; align-items: center; justify-content: flex-end; gap: 16px; padding: 16px 0 0; border-left: 0; border-top: 1px solid var(--line); }
+      .fare strong { margin: 0; }
+      .choose-fare { width: auto; min-width: 150px; }
     }
 
     @media (max-width: 640px) {
@@ -265,6 +312,11 @@
       .footer-main { grid-template-columns: 1fr 1fr; gap: 35px; }
       .footer-main > :first-child, .footer-main > :last-child { grid-column: 1 / -1; }
       .footer-bottom { flex-direction: column; }
+      .results-head { align-items: flex-start; flex-direction: column; }
+      .flight-card { grid-template-columns: 1fr; gap: 18px; }
+      .flight-slice { grid-template-columns: 62px 1fr 62px; }
+      .fare { grid-column: auto; justify-content: space-between; }
+      .results-meta { align-items: flex-start; flex-wrap: wrap; }
     }
   </style>
 </head>
@@ -278,7 +330,7 @@
 
   <header class="nav-wrap">
     <nav class="shell">
-      <a class="brand" href="#">
+      <a class="brand" href="./" aria-label="Muskan Travels home">
         <span class="brand-mark" aria-hidden="true">
           <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 16l6-6 4 4 3-3 5 5"/><path d="M8 6h.01"/><path d="M4 20h16"/></svg>
         </span>
@@ -313,21 +365,24 @@
         </div>
 
         <div class="planner reveal">
-          <div class="planner-inner">
+          <form class="planner-inner" id="flightSearchForm">
             <div class="planner-top">
               <strong>Where next?</strong>
-              <div class="service-tabs"><button class="service-tab active" data-service="flight">Flights</button><button class="service-tab" data-service="tour">Tours</button></div>
+              <div class="service-tabs"><button class="service-tab active" type="button" data-service="flight">Flights</button><button class="service-tab" type="button" data-service="tour">Tours</button></div>
             </div>
-            <div class="trip-type"><label><input type="radio" name="trip" checked /> Round trip</label><label><input type="radio" name="trip" /> One way</label><label><input type="radio" name="trip" /> Multi-city</label></div>
+            <div class="trip-type"><label><input type="radio" name="trip" value="round" checked /> Round trip</label><label><input type="radio" name="trip" value="oneway" /> One way</label></div>
             <div class="field-grid">
-              <div class="field"><label>From</label><input value="Kathmandu (KTM)" aria-label="From" /></div>
-              <div class="field"><label>To</label><input value="Dubai (DXB)" aria-label="To" /></div>
-              <div class="field"><label>Departure</label><input type="date" aria-label="Departure date" /></div>
-              <div class="field"><label>Travellers</label><select aria-label="Travellers"><option>1 traveller</option><option>2 travellers</option><option>Family / group</option></select></div>
+              <div class="field"><label for="origin">From</label><input id="origin" name="origin" value="Kathmandu (KTM)" list="airportList" autocomplete="off" required /></div>
+              <div class="field"><label for="destination">To</label><input id="destination" name="destination" value="Dubai (DXB)" list="airportList" autocomplete="off" required /></div>
+              <div class="field"><label for="departureDate">Departure</label><input id="departureDate" name="departure_date" type="date" required /></div>
+              <div class="field" id="returnField"><label for="returnDate">Return</label><input id="returnDate" name="return_date" type="date" required /></div>
+              <div class="field"><label for="adults">Travellers</label><select id="adults" name="adults"><option value="1">1 adult</option><option value="2">2 adults</option><option value="3">3 adults</option><option value="4">4 adults</option><option value="5">5 adults</option><option value="6">6 adults</option><option value="7">7 adults</option><option value="8">8 adults</option><option value="9">9 adults</option></select></div>
+              <div class="field"><label for="cabinClass">Cabin</label><select id="cabinClass" name="cabin_class"><option value="economy">Economy</option><option value="premium_economy">Premium economy</option><option value="business">Business</option><option value="first">First</option></select></div>
             </div>
-            <button class="search-btn" id="searchBtn">Request current options</button>
-            <p class="planner-note">Fares and availability are confirmed by our team.</p>
-          </div>
+            <datalist id="airportList"><option value="Kathmandu (KTM)"><option value="Pokhara (PKR)"><option value="Bhairahawa (BWA)"><option value="Bhadrapur (BDP)"><option value="Biratnagar (BIR)"><option value="Nepalgunj (KEP)"><option value="Janakpur (JKR)"><option value="Lukla (LUA)"><option value="Delhi (DEL)"><option value="Dubai (DXB)"><option value="Doha (DOH)"><option value="Bangkok (BKK)"><option value="Singapore (SIN)"><option value="Kuala Lumpur (KUL)"><option value="London Heathrow (LHR)"><option value="Sydney (SYD)"></datalist>
+            <button class="search-btn" id="searchBtn" type="submit">Search live flights</button>
+            <p class="planner-note">Live airline fares · Rechecked before booking</p>
+          </form>
           <div class="floating-card route-badge"><span>✈</span><div><strong>Air ticketing</strong><small>Domestic and international routes</small></div></div>
         </div>
       </div>
@@ -341,6 +396,17 @@
         <a class="quick-item" href="#contact"><span class="quick-icon">☏</span><span><strong>Travel support</strong><small>Phone, email and WhatsApp</small></span></a>
       </div>
     </div>
+
+    <section class="flight-results" id="flightResults" hidden aria-live="polite">
+      <div class="shell">
+        <div class="results-head">
+          <div><span class="eyebrow">Available flights</span><h2 id="resultsTitle">Current fare options</h2></div>
+          <div class="results-meta"><span class="live-pill" id="resultsMode">Live availability</span><span id="resultsCount"></span><select class="sort-select" id="sortResults" aria-label="Sort flight results"><option value="price">Lowest price</option><option value="duration">Shortest journey</option><option value="departure">Earliest departure</option></select></div>
+        </div>
+        <div class="results-list" id="resultsList"></div>
+        <p class="fare-note" id="fareNote" hidden>Airline prices can change until ticketing. Muskan rechecks the selected fare before confirming your booking.</p>
+      </div>
+    </section>
 
     <section class="section packages" id="packages">
       <div class="shell">
@@ -424,7 +490,7 @@
 
   <footer>
     <div class="shell footer-main">
-      <div><a class="brand" href="#"><span class="brand-mark">⌁</span><span class="brand-name">Muskan Travels<small>ONE STOP FOR ALL TRAVEL NEEDS</small></span></a><p class="footer-about">Air ticketing, inbound Nepal tours and international holidays from Kathmandu since 2004.</p></div>
+      <div><a class="brand" href="./" aria-label="Muskan Travels home"><span class="brand-mark">⌁</span><span class="brand-name">Muskan Travels<small>ONE STOP FOR ALL TRAVEL NEEDS</small></span></a><p class="footer-about">Air ticketing, inbound Nepal tours and international holidays from Kathmandu since 2004.</p></div>
       <div><h3>Explore</h3><div class="footer-links"><a href="#packages">Nepal tours</a><a href="#packages">International tours</a><a href="#services">Air ticketing</a><a href="#story">About us</a></div></div>
       <div><h3>Plan</h3><div class="footer-links"><a href="#contact">Request a quote</a><a href="#services">Travel services</a><a href="#contact">Contact us</a><a href="#contact">Ask a question</a></div></div>
       <div><h3>Get in touch</h3><div class="footer-contact"><span>Gahana Pokhari, Kathmandu, Nepal</span><a href="tel:+97714528318">01-4528318, 4526681</a><a href="tel:+9779851066313">+977-9851066313</a><a href="mailto:Travelmuskan@gmail.com">Travelmuskan@gmail.com</a></div></div>
@@ -432,7 +498,7 @@
     <div class="shell footer-bottom"><span>© 2026 Muskan Travel & Tours Pvt. Ltd.</span><span>Gahana Pokhari, Kathmandu, Nepal</span></div>
   </footer>
 
-  <div class="toast" id="toast">This is a preview. Call or WhatsApp us for current fares and availability.</div>
+  <div class="toast" id="toast" role="status"></div>
   <script>
     const menuBtn = document.getElementById('menuBtn');
     const navLinks = document.getElementById('navLinks');
@@ -444,20 +510,174 @@
     updateHeader();
 
     const toast = document.getElementById('toast');
-    document.getElementById('searchBtn').addEventListener('click', () => {
-      toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 3200);
+    const showToast = message => {
+      toast.textContent = message;
+      toast.classList.add('show');
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => toast.classList.remove('show'), 4200);
+    };
+
+    const form = document.getElementById('flightSearchForm');
+    const searchBtn = document.getElementById('searchBtn');
+    const resultsSection = document.getElementById('flightResults');
+    const resultsList = document.getElementById('resultsList');
+    const resultsTitle = document.getElementById('resultsTitle');
+    const resultsCount = document.getElementById('resultsCount');
+    const resultsMode = document.getElementById('resultsMode');
+    const fareNote = document.getElementById('fareNote');
+    const sortResults = document.getElementById('sortResults');
+    const departureDate = document.getElementById('departureDate');
+    const returnDate = document.getElementById('returnDate');
+    const returnField = document.getElementById('returnField');
+    const apiBase = location.hostname.endsWith('github.io') || location.hostname.endsWith('chatgpt.site')
+      ? 'https://muskan.technica.com.np/'
+      : '';
+    let currentService = 'flight';
+    let currentOffers = [];
+    let currentSearch = null;
+
+    const today = new Date();
+    const localDate = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+    const defaultDeparture = new Date(today.getTime() + 14 * 86400000);
+    const defaultReturn = new Date(today.getTime() + 21 * 86400000);
+    departureDate.min = localDate;
+    returnDate.min = localDate;
+    departureDate.value = new Date(defaultDeparture.getTime() - defaultDeparture.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+    returnDate.value = new Date(defaultReturn.getTime() - defaultReturn.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+    departureDate.addEventListener('change', () => {
+      returnDate.min = departureDate.value || localDate;
+      if (returnDate.value && returnDate.value < departureDate.value) returnDate.value = departureDate.value;
     });
+
+    document.querySelectorAll('input[name="trip"]').forEach(radio => radio.addEventListener('change', () => {
+      const oneWay = radio.value === 'oneway' && radio.checked;
+      if (!radio.checked) return;
+      returnField.hidden = oneWay;
+      returnDate.required = !oneWay;
+    }));
 
     document.querySelectorAll('.service-tab').forEach(tab => tab.addEventListener('click', () => {
       document.querySelectorAll('.service-tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       const isTour = tab.dataset.service === 'tour';
+      currentService = isTour ? 'tour' : 'flight';
       document.querySelector('.trip-type').style.display = isTour ? 'none' : 'flex';
       document.querySelectorAll('.field label')[0].textContent = isTour ? 'Travel style' : 'From';
       document.querySelectorAll('.field input')[0].value = isTour ? 'Culture & discovery' : 'Kathmandu (KTM)';
       document.querySelectorAll('.field label')[1].textContent = isTour ? 'Destination' : 'To';
       document.querySelectorAll('.field input')[1].value = isTour ? 'Nepal or worldwide' : 'Dubai (DXB)';
+      searchBtn.textContent = isTour ? 'Plan my tour' : 'Search live flights';
     }));
+
+    const airportCode = value => {
+      const parenthesised = value.match(/\(([A-Za-z]{3})\)/);
+      if (parenthesised) return parenthesised[1].toUpperCase();
+      const exact = value.trim().match(/^([A-Za-z]{3})$/);
+      return exact ? exact[1].toUpperCase() : '';
+    };
+    const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
+    const localTime = iso => iso ? iso.slice(11, 16) : '—';
+    const localDay = iso => iso ? new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric' }).format(new Date(iso.slice(0, 10) + 'T12:00:00')) : '';
+    const durationText = minutes => `${Math.floor(minutes / 60)}h ${minutes % 60}m`;
+    const money = (amount, currency) => {
+      try { return new Intl.NumberFormat('en', { style: 'currency', currency }).format(Number(amount)); }
+      catch { return `${currency} ${Number(amount).toFixed(2)}`; }
+    };
+    const stateMessage = (title, message) => {
+      resultsList.innerHTML = `<div class="results-state"><h3>${escapeHtml(title)}</h3><p>${message}</p></div>`;
+      fareNote.hidden = true;
+      resultsCount.textContent = '';
+    };
+    const showLoading = () => {
+      resultsSection.hidden = false;
+      resultsTitle.textContent = 'Searching current fares…';
+      resultsCount.textContent = 'Checking airlines';
+      fareNote.hidden = true;
+      resultsList.innerHTML = '<div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div>';
+      resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+    const renderOffers = () => {
+      const sort = sortResults.value;
+      const offers = [...currentOffers].sort((a, b) => sort === 'duration'
+        ? a.total_duration_minutes - b.total_duration_minutes
+        : sort === 'departure'
+          ? a.slices[0].departing_at.localeCompare(b.slices[0].departing_at)
+          : Number(a.total_amount) - Number(b.total_amount));
+      resultsList.innerHTML = offers.map(offer => {
+        const airline = offer.airline || {};
+        const initials = (airline.iata_code || airline.name || 'FL').slice(0, 2).toUpperCase();
+        const slices = offer.slices.map(slice => {
+          const stops = Math.max(0, slice.segments.length - 1);
+          return `<div class="flight-slice"><div class="flight-time"><strong>${localTime(slice.departing_at)}</strong><small>${escapeHtml(slice.origin)} · ${localDay(slice.departing_at)}</small></div><div class="route-line"><span>${durationText(slice.duration_minutes)}</span><div class="route-rule"></div><span>${stops ? `${stops} stop${stops > 1 ? 's' : ''}` : 'Direct'}</span></div><div class="flight-time" style="text-align:right"><strong>${localTime(slice.arriving_at)}</strong><small>${escapeHtml(slice.destination)} · ${localDay(slice.arriving_at)}</small></div></div>`;
+        }).join('');
+        return `<article class="flight-card"><div class="airline"><span class="airline-logo">${escapeHtml(initials)}</span><span><strong>${escapeHtml(airline.name || 'Airline')}</strong><small>${escapeHtml(offer.flight_numbers.join(' · '))}${offer.baggage ? ` · ${escapeHtml(offer.baggage)}` : ''}</small></span></div><div class="slice-list">${slices}</div><div class="fare"><span><small>Total for ${currentSearch.adults} adult${currentSearch.adults > 1 ? 's' : ''}</small><strong>${money(offer.total_amount, offer.total_currency)}</strong></span><button class="choose-fare" type="button" data-offer-id="${escapeHtml(offer.id)}">Request this fare</button></div></article>`;
+      }).join('');
+      resultsList.querySelectorAll('.choose-fare').forEach(button => button.addEventListener('click', () => recheckOffer(button)));
+    };
+    const recheckOffer = async button => {
+      const original = button.textContent;
+      button.disabled = true;
+      button.textContent = 'Rechecking…';
+      const popup = window.open('', '_blank');
+      try {
+        const response = await fetch(`${apiBase}api/offer.php?id=${encodeURIComponent(button.dataset.offerId)}`, { headers: { 'Accept': 'application/json' } });
+        const payload = await response.json();
+        if (!response.ok) throw new Error(payload.message || 'This fare is no longer available.');
+        const offer = payload.offer;
+        const route = offer.slices.map(slice => `${slice.origin}-${slice.destination}`).join(' / ');
+        const message = `Hello Muskan Travels, I found a current flight option on your website.%0A%0ARoute: ${route}%0ADate: ${currentSearch.departure_date}%0AAirline: ${offer.airline.name}%0AFare: ${money(offer.total_amount, offer.total_currency)}%0AReference: ${offer.id}%0A%0APlease help me confirm and book this fare.`;
+        const url = `https://wa.me/9779851066313?text=${encodeURIComponent(decodeURIComponent(message))}`;
+        if (popup) popup.location = url; else window.location.href = url;
+      } catch (error) {
+        if (popup) popup.close();
+        showToast(error.message);
+        button.disabled = false;
+        button.textContent = original;
+      }
+    };
+    sortResults.addEventListener('change', renderOffers);
+
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
+      if (currentService === 'tour') {
+        const destination = document.getElementById('destination').value.trim();
+        window.open(`https://wa.me/9779851066313?text=${encodeURIComponent(`Hello Muskan Travels, I would like help planning a tour to ${destination}.`)}`, '_blank');
+        return;
+      }
+      const origin = airportCode(document.getElementById('origin').value);
+      const destination = airportCode(document.getElementById('destination').value);
+      if (!origin || !destination) return showToast('Please choose airports using their three-letter codes, for example KTM or DXB.');
+      if (origin === destination) return showToast('Departure and destination airports must be different.');
+      const isRoundTrip = document.querySelector('input[name="trip"]:checked').value === 'round';
+      currentSearch = {
+        origin, destination,
+        departure_date: departureDate.value,
+        return_date: isRoundTrip ? returnDate.value : null,
+        adults: Number(document.getElementById('adults').value),
+        cabin_class: document.getElementById('cabinClass').value
+      };
+      if (isRoundTrip && returnDate.value < departureDate.value) return showToast('Return date must be after the departure date.');
+      showLoading();
+      searchBtn.disabled = true;
+      searchBtn.innerHTML = '<span class="search-spinner"></span> Searching airlines';
+      try {
+        const response = await fetch(`${apiBase}api/search-flights.php`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(currentSearch) });
+        const payload = await response.json();
+        if (!response.ok) throw new Error(payload.message || 'Live flight search is temporarily unavailable.');
+        currentOffers = payload.offers || [];
+        resultsTitle.textContent = `${origin} to ${destination}`;
+        resultsMode.textContent = payload.live_mode ? 'Live availability' : 'Provider test mode';
+        resultsCount.textContent = `${currentOffers.length} option${currentOffers.length === 1 ? '' : 's'} found`;
+        if (!currentOffers.length) stateMessage('No flights found', 'Try nearby dates or another airport. You can also <a href="https://wa.me/9779851066313">ask our travel team</a> to check more options.');
+        else { renderOffers(); fareNote.hidden = false; }
+      } catch (error) {
+        resultsTitle.textContent = 'Flight search';
+        stateMessage('We could not complete this search', `${escapeHtml(error.message)} <a href="https://wa.me/9779851066313">Ask Muskan on WhatsApp</a>.`);
+      } finally {
+        searchBtn.disabled = false;
+        searchBtn.textContent = 'Search live flights';
+      }
+    });
 
     document.querySelectorAll('.filter-chip').forEach(chip => chip.addEventListener('click', () => {
       document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active')); chip.classList.add('active');

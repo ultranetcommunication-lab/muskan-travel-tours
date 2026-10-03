@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "project": {
+    "name": "Muskan tours",
+    "productType": "Travel agency marketing and live flight search",
+    "stack": ["Static HTML", "CSS", "Vanilla JavaScript", "PHP 8.3"]
+  },
+  "sources": {
+    "tokens": [],
+    "components": [],
+    "assets": [],
+    "instructions": []
+  },
+  "design": {
+    "colorMode": "light",
+    "colors": {
+      "navy": "#092a3d",
+      "teal": "#0a847b",
+      "saffron": "#f3a712",
+      "paper": "#f7f4ed"
+    },
+    "typography": {
+      "display": "DM Serif Display",
+      "body": "Manrope"
+    },
+    "spacing": {},
+    "radius": {},
+    "shadows": {},
+    "motion": {},
+    "density": "comfortable"
+  },
+  "components": {
+    "installed": [],
+    "preferredPrimitives": [],
+    "patterns": []
+  },
+  "constraints": {
+    "must": [
+      "Keep live-provider credentials on the server only",
+      "Show loading, empty, error, test and live states honestly",
+      "Recheck a selected airline offer before booking contact"
+    ],
+    "avoid": [
+      "Decorative dashboard chrome that conflicts with the travel brand",
+      "Presenting test-mode prices as live fares"
+    ]
+  },
+  "decisions": [
+    "Use a clean vertical flight-results list matching the existing navy, teal and saffron identity.",
+    "Keep booking assisted through Muskan WhatsApp until passenger, payment and order flows are implemented."
+  ],
+  "evidence": [],
+  "generatedAt": "2026-10-03T04:52:41.086Z"
+}
