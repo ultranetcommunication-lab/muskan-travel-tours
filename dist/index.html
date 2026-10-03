@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Muskan Travel & Tours — air ticketing, inbound Nepal journeys and international holidays since 2004." />
+  <title>Muskan Travel & Tours — One stop for all travel needs</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23f3a712'/%3E%3Cpath d='M11 42 25 25l9 10 7-8 12 15M14 49h36' fill='none' stroke='%23092a3d' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #0d2232;
+      --navy: #092a3d;
+      --navy-2: #0d3850;
+      --teal: #0a847b;
+      --teal-dark: #07675f;
+      --saffron: #f3a712;
+      --paper: #f7f4ed;
+      --cream: #fffaf0;
+      --white: #fff;
+      --muted: #637481;
+      --line: rgba(13, 34, 50, .12);
+      --shadow: 0 20px 60px rgba(1, 28, 42, .13);
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Manrope, system-ui, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    button, input, select { font: inherit; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    .shell { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 9px;
+      font-size: 12px; line-height: 1; font-weight: 800; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--teal);
+    }
+    .eyebrow::before { content: ""; width: 28px; height: 2px; background: var(--saffron); }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2 { font-family: "DM Serif Display", Georgia, serif; font-weight: 400; line-height: 1.02; }
+    h2 { font-size: clamp(38px, 5vw, 64px); letter-spacing: -.03em; }
+    .section { padding: 110px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 40px; margin-bottom: 44px; }
+    .section-head h2 { max-width: 650px; margin: 12px 0 0; }
+    .section-head p { max-width: 420px; color: var(--muted); margin-bottom: 4px; }
+
+    .topbar { background: var(--navy); color: rgba(255,255,255,.78); font-size: 12px; }
+    .topbar .shell { height: 38px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .topbar strong { color: #fff; }
+    .topbar-right { display: flex; align-items: center; gap: 20px; }
+    .topbar a:hover { color: var(--saffron); }
+
+    .nav-wrap { position: absolute; z-index: 10; left: 0; right: 0; top: 38px; }
+    nav {
+      height: 86px; display: flex; align-items: center; justify-content: space-between; gap: 30px;
+      color: #fff; border-bottom: 1px solid rgba(255,255,255,.18);
+    }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 800; letter-spacing: -.03em; }
+    .brand-mark {
+      width: 45px; height: 45px; display: grid; place-items: center; border-radius: 14px;
+      background: var(--saffron); color: var(--navy); box-shadow: 0 10px 30px rgba(243,167,18,.35);
+    }
+    .brand-name { font-size: 18px; line-height: 1.05; }
+    .brand-name small { display: block; margin-top: 5px; font-size: 8px; letter-spacing: .18em; opacity: .65; }
+    .nav-links { display: flex; align-items: center; gap: 29px; font-size: 13px; font-weight: 700; }
+    .nav-links a { position: relative; }
+    .nav-links a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: -8px; height: 2px; background: var(--saffron); transition: .25s; }
+    .nav-links a:hover::after { right: 0; }
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .nav-cta, .primary-btn, .ghost-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      border: 0; border-radius: 999px; font-weight: 800; cursor: pointer; transition: .25s ease;
+    }
+    .nav-cta { padding: 12px 20px; color: var(--navy); background: var(--saffron); font-size: 12px; }
+    .nav-cta:hover, .primary-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(243,167,18,.3); }
+    .menu-btn { display: none; width: 43px; height: 43px; place-items: center; border: 1px solid rgba(255,255,255,.3); border-radius: 50%; color: #fff; background: transparent; }
+
+    .hero {
+      min-height: 820px; color: #fff; position: relative; display: flex; align-items: center; isolation: isolate;
+      background: linear-gradient(90deg, rgba(3,25,37,.93) 0%, rgba(4,34,48,.76) 45%, rgba(4,34,48,.18) 100%),
+        url("https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=2100&q=88") center/cover;
+    }
+    .hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgba(3,29,40,.7), transparent 45%); }
+    .hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 140px; z-index: -1; background: linear-gradient(0deg, var(--paper), transparent); opacity: .16; }
+    .hero-inner { padding-top: 112px; display: grid; grid-template-columns: 1.08fr .92fr; align-items: center; gap: 70px; }
+    .hero-kicker { color: var(--saffron); font-size: 12px; letter-spacing: .17em; text-transform: uppercase; font-weight: 800; }
+    .hero h1 { font-size: clamp(55px, 7vw, 96px); letter-spacing: -.045em; max-width: 760px; margin: 18px 0 24px; }
+    .hero h1 em { color: #f7c35a; font-weight: 400; }
+    .hero-copy > p { max-width: 610px; color: rgba(255,255,255,.75); font-size: 17px; }
+    .hero-buttons { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 32px; }
+    .primary-btn { padding: 16px 25px; background: var(--saffron); color: var(--navy); }
+    .ghost-btn { padding: 15px 24px; color: #fff; border: 1px solid rgba(255,255,255,.4); background: rgba(255,255,255,.08); backdrop-filter: blur(10px); }
+    .ghost-btn:hover { background: rgba(255,255,255,.16); }
+    .hero-trust { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 42px; font-size: 12px; color: rgba(255,255,255,.68); }
+    .avatar-stack { display: flex; }
+    .avatar-stack img { width: 36px; height: 36px; object-fit: cover; border-radius: 50%; border: 2px solid var(--navy); margin-left: -9px; }
+    .avatar-stack img:first-child { margin-left: 0; }
+    .stars { color: var(--saffron); letter-spacing: 2px; }
+
+    .planner {
+      border: 1px solid rgba(255,255,255,.27); border-radius: 28px; padding: 9px;
+      background: rgba(255,255,255,.14); backdrop-filter: blur(22px); box-shadow: 0 30px 90px rgba(0,0,0,.22);
+    }
+    .planner-inner { background: rgba(255,255,255,.96); color: var(--ink); border-radius: 21px; padding: 25px; }
+    .planner-top { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 20px; }
+    .planner-top strong { font-family: "DM Serif Display"; font-size: 25px; font-weight: 400; }
+    .service-tabs { display: flex; padding: 4px; border-radius: 999px; background: #eaf0ef; }
+    .service-tab { padding: 8px 13px; border: 0; border-radius: 999px; color: var(--muted); background: transparent; font-size: 11px; font-weight: 800; cursor: pointer; }
+    .service-tab.active { color: #fff; background: var(--teal); }
+    .trip-type { display: flex; gap: 17px; margin-bottom: 18px; font-size: 11px; color: var(--muted); font-weight: 700; }
+    .trip-type label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+    .trip-type input { accent-color: var(--teal); }
+    .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .field { padding: 12px 13px; border: 1px solid #dbe3e4; border-radius: 13px; background: #fff; }
+    .field label { display: block; color: #80909a; font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .field input, .field select { width: 100%; border: 0; outline: 0; color: var(--ink); background: transparent; font-size: 13px; font-weight: 700; }
+    .search-btn { width: 100%; margin-top: 11px; padding: 14px; border: 0; border-radius: 13px; background: var(--teal); color: #fff; font-weight: 800; cursor: pointer; }
+    .search-btn:hover { background: var(--teal-dark); }
+    .planner-note { display: flex; align-items: center; justify-content: center; gap: 7px; margin: 12px 0 0; color: var(--muted); font-size: 10px; }
+    .floating-card { position: absolute; border-radius: 17px; background: #fff; color: var(--ink); box-shadow: var(--shadow); }
+    .route-badge { right: -32px; bottom: -42px; padding: 14px 17px; display: flex; align-items: center; gap: 12px; }
+    .route-badge span { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 12px; color: var(--teal); background: #dff6f0; }
+    .route-badge strong { display: block; font-size: 12px; }
+    .route-badge small { color: var(--muted); font-size: 9px; }
+
+    .quick-bar { position: relative; z-index: 3; margin-top: -49px; }
+    .quick-inner { display: grid; grid-template-columns: repeat(4, 1fr); border-radius: 22px; background: #fff; box-shadow: var(--shadow); overflow: hidden; }
+    .quick-item { display: flex; align-items: center; gap: 14px; padding: 26px 24px; border-right: 1px solid var(--line); }
+    .quick-item:last-child { border: 0; }
+    .quick-icon { width: 43px; height: 43px; flex: 0 0 43px; display: grid; place-items: center; border-radius: 13px; color: var(--teal); background: #e6f4f1; }
+    .quick-item strong { display: block; font-size: 13px; }
+    .quick-item small { color: var(--muted); font-size: 10px; }
+
+    .packages { background: var(--paper); }
+    .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin: -10px 0 30px; }
+    .filter-chip { padding: 9px 15px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--muted); font-size: 11px; font-weight: 800; cursor: pointer; }
+    .filter-chip.active { color: #fff; background: var(--navy); border-color: var(--navy); }
+    .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 23px; perspective: 1100px; }
+    .destination-card { position: relative; min-height: 490px; overflow: hidden; border-radius: 26px; color: #fff; box-shadow: 0 24px 55px rgba(12,31,40,.14); transform-style: preserve-3d; transition: transform .12s linear, opacity .3s; }
+    .destination-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .7s ease; }
+    .destination-card:hover img { transform: scale(1.06); }
+    .destination-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(2,27,40,.94), rgba(2,27,40,.05) 70%); }
+    .card-tag { position: absolute; z-index: 2; left: 19px; top: 19px; padding: 7px 11px; border-radius: 999px; background: rgba(255,255,255,.86); color: var(--navy); backdrop-filter: blur(8px); font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: .09em; }
+    .card-save { position: absolute; z-index: 2; right: 19px; top: 19px; width: 38px; height: 38px; border: 0; border-radius: 50%; background: rgba(255,255,255,.2); color: #fff; backdrop-filter: blur(8px); cursor: pointer; }
+    .card-save.saved { background: var(--saffron); color: var(--navy); }
+    .card-body { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; padding: 25px; transform: translateZ(35px); }
+    .card-body h3 { margin-bottom: 7px; font-family: "DM Serif Display"; font-size: 30px; font-weight: 400; }
+    .card-meta { display: flex; gap: 14px; color: rgba(255,255,255,.75); font-size: 10px; }
+    .card-bottom { display: flex; align-items: end; justify-content: space-between; gap: 15px; margin-top: 22px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.22); }
+    .price small { display: block; color: rgba(255,255,255,.55); font-size: 9px; }
+    .price strong { color: #fff; font-size: 17px; }
+    .card-arrow { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; color: var(--navy); background: var(--saffron); }
+
+    .services { background: var(--navy); color: #fff; position: relative; overflow: hidden; }
+    .services::before { content: ""; position: absolute; width: 650px; height: 650px; right: -220px; top: -300px; border: 110px solid rgba(255,255,255,.025); border-radius: 50%; }
+    .services .eyebrow { color: #8ddfd7; }
+    .services .section-head p { color: rgba(255,255,255,.62); }
+    .service-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .service-card { min-height: 270px; padding: 28px 25px; border: 1px solid rgba(255,255,255,.11); border-radius: 21px; background: rgba(255,255,255,.045); transition: .3s; }
+    .service-card:hover { transform: translateY(-8px); border-color: rgba(243,167,18,.6); background: rgba(255,255,255,.08); }
+    .service-number { color: rgba(255,255,255,.25); font-family: "DM Serif Display"; font-size: 14px; }
+    .service-icon { width: 50px; height: 50px; display: grid; place-items: center; margin: 25px 0 28px; border-radius: 15px; color: var(--navy); background: var(--saffron); }
+    .service-card h3 { font-size: 16px; }
+    .service-card p { color: rgba(255,255,255,.58); font-size: 12px; }
+
+    .story-grid { display: grid; grid-template-columns: .92fr 1.08fr; gap: 80px; align-items: center; }
+    .story-image { min-height: 610px; position: relative; }
+    .story-image > img { width: 86%; height: 570px; object-fit: cover; border-radius: 180px 180px 25px 25px; }
+    .story-mini { position: absolute; width: 225px; height: 260px; right: 0; bottom: 0; border: 8px solid var(--paper); border-radius: 22px; object-fit: cover; box-shadow: var(--shadow); }
+    .year-badge { position: absolute; left: -27px; bottom: 80px; width: 145px; height: 145px; display: grid; place-items: center; text-align: center; border-radius: 50%; background: var(--saffron); color: var(--navy); box-shadow: 0 18px 50px rgba(243,167,18,.28); }
+    .year-badge strong { display: block; font-family: "DM Serif Display"; font-size: 40px; line-height: .9; }
+    .year-badge small { font-size: 9px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .story-copy h2 { margin: 13px 0 23px; }
+    .story-copy > p { color: var(--muted); }
+    .feature-list { display: grid; grid-template-columns: 1fr 1fr; gap: 17px 30px; margin: 30px 0 36px; }
+    .feature { display: flex; align-items: center; gap: 11px; font-size: 12px; font-weight: 800; }
+    .check { width: 26px; height: 26px; display: grid; place-items: center; flex: 0 0 26px; border-radius: 50%; color: var(--teal); background: #dcefeb; }
+    .text-link { display: inline-flex; align-items: center; gap: 9px; padding-bottom: 5px; border-bottom: 2px solid var(--saffron); color: var(--navy); font-size: 12px; font-weight: 800; }
+
+    .proof { padding: 65px 0; color: #fff; background: var(--teal); }
+    .proof-grid { display: grid; grid-template-columns: 1.25fr repeat(3, 1fr); gap: 40px; align-items: center; }
+    .proof h2 { font-size: 38px; margin-bottom: 0; }
+    .stat { border-left: 1px solid rgba(255,255,255,.24); padding-left: 35px; }
+    .stat strong { display: block; font-family: "DM Serif Display"; font-size: 47px; font-weight: 400; line-height: 1; }
+    .stat small { color: rgba(255,255,255,.66); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
+
+    .testimonial { background: var(--cream); }
+    .quote-wrap { display: grid; grid-template-columns: .75fr 1.25fr; gap: 70px; align-items: center; }
+    .quote-photo { min-height: 480px; overflow: hidden; border-radius: 26px; position: relative; }
+    .quote-photo img { width: 100%; height: 480px; object-fit: cover; }
+    .quote-photo::after { content: "Happy travellers"; position: absolute; left: 20px; bottom: 20px; padding: 9px 14px; border-radius: 999px; color: #fff; background: rgba(4,32,45,.65); backdrop-filter: blur(8px); font-size: 10px; font-weight: 800; }
+    .quote-mark { color: var(--saffron); font-family: Georgia; font-size: 80px; line-height: .7; }
+    .quote-text { font-family: "DM Serif Display"; font-size: clamp(28px, 3vw, 42px); line-height: 1.2; }
+    .quote-person { display: flex; align-items: center; gap: 13px; margin-top: 30px; }
+    .quote-person img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+    .quote-person strong { display: block; font-size: 12px; }
+    .quote-person small { color: var(--muted); font-size: 10px; }
+    .quote-controls { display: flex; gap: 8px; margin-top: 30px; }
+    .round-btn { width: 42px; height: 42px; border: 1px solid var(--line); border-radius: 50%; color: var(--navy); background: transparent; cursor: pointer; }
+    .round-btn:hover { color: #fff; background: var(--navy); }
+
+    .contact-band { padding: 80px 0; background: var(--paper); }
+    .contact-inner { position: relative; overflow: hidden; padding: 64px; border-radius: 30px; color: #fff; background: var(--navy); }
+    .contact-inner::after { content: ""; position: absolute; width: 420px; height: 420px; right: -100px; top: -250px; border-radius: 50%; background: var(--teal); opacity: .55; }
+    .contact-content { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+    .contact-content h2 { font-size: clamp(38px, 4vw, 58px); max-width: 690px; margin: 0; }
+    .contact-buttons { display: flex; flex-direction: column; gap: 10px; min-width: 210px; }
+    .contact-buttons a { padding: 14px 20px; border-radius: 999px; text-align: center; font-size: 12px; font-weight: 800; }
+    .whatsapp { color: #fff; background: #1fae64; }
+    .call { color: var(--navy); background: var(--saffron); }
+
+    footer { color: rgba(255,255,255,.63); background: #061f2e; }
+    .footer-main { padding: 70px 0 45px; display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.2fr; gap: 60px; }
+    footer .brand { color: #fff; margin-bottom: 20px; }
+    .footer-about { max-width: 310px; font-size: 12px; }
+    footer h3 { color: #fff; font-size: 12px; margin-bottom: 20px; }
+    .footer-links { display: grid; gap: 10px; font-size: 11px; }
+    .footer-links a:hover { color: var(--saffron); }
+    .footer-contact { display: grid; gap: 10px; font-size: 11px; }
+    .footer-bottom { padding: 18px 0; display: flex; justify-content: space-between; gap: 25px; border-top: 1px solid rgba(255,255,255,.08); font-size: 9px; }
+    .mockup-note { color: var(--saffron); }
+    .toast { position: fixed; z-index: 50; left: 50%; bottom: 28px; transform: translate(-50%, 120px); padding: 13px 20px; border-radius: 999px; color: #fff; background: var(--navy); box-shadow: var(--shadow); font-size: 11px; font-weight: 700; transition: .35s; }
+    .toast.show { transform: translate(-50%, 0); }
+    .reveal { opacity: 0; transform: translateY(28px); transition: .7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 980px) {
+      .nav-links { display: none; position: absolute; left: 20px; right: 20px; top: 80px; padding: 22px; flex-direction: column; align-items: flex-start; border-radius: 18px; color: var(--ink); background: #fff; box-shadow: var(--shadow); }
+      .nav-links.open { display: flex; }
+      .menu-btn { display: grid; }
+      .nav-cta { display: none; }
+      .hero { min-height: 1080px; }
+      .hero-inner { grid-template-columns: 1fr; gap: 45px; padding-top: 170px; padding-bottom: 110px; }
+      .hero-copy { max-width: 750px; }
+      .planner { max-width: 620px; }
+      .route-badge { right: 15px; }
+      .quick-inner { grid-template-columns: 1fr 1fr; }
+      .quick-item:nth-child(2) { border-right: 0; }
+      .quick-item:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .card-grid { grid-template-columns: 1fr 1fr; }
+      .destination-card:last-child { display: none; }
+      .service-grid { grid-template-columns: 1fr 1fr; }
+      .story-grid, .quote-wrap { grid-template-columns: 1fr; }
+      .story-image { max-width: 650px; }
+      .proof-grid { grid-template-columns: 1fr 1fr; }
+      .contact-content { align-items: flex-start; flex-direction: column; }
+      .contact-buttons { width: 100%; flex-direction: row; }
+      .contact-buttons a { flex: 1; }
+      .footer-main { grid-template-columns: 1.4fr 1fr 1fr; }
+      .footer-main > :last-child { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 640px) {
+      .shell { width: min(100% - 28px, 1180px); }
+      .topbar-right span { display: none; }
+      .section { padding: 80px 0; }
+      .section-head { align-items: flex-start; flex-direction: column; gap: 15px; }
+      .hero h1 { font-size: 53px; }
+      .field-grid, .card-grid, .service-grid, .feature-list, .proof-grid { grid-template-columns: 1fr; }
+      .planner-top { align-items: flex-start; flex-direction: column; }
+      .destination-card:last-child { display: block; }
+      .quick-inner { grid-template-columns: 1fr; }
+      .quick-item { border-right: 0; border-bottom: 1px solid var(--line); }
+      .quick-item:nth-child(3) { border-bottom: 1px solid var(--line); }
+      .route-badge { display: none; }
+      .story-image { min-height: 520px; }
+      .story-image > img { width: 94%; height: 500px; }
+      .story-mini { width: 155px; height: 190px; }
+      .year-badge { left: -7px; width: 115px; height: 115px; }
+      .stat { padding: 22px 0 0; border-left: 0; border-top: 1px solid rgba(255,255,255,.24); }
+      .contact-inner { padding: 42px 26px; }
+      .contact-buttons { flex-direction: column; }
+      .footer-main { grid-template-columns: 1fr 1fr; gap: 35px; }
+      .footer-main > :first-child, .footer-main > :last-child { grid-column: 1 / -1; }
+      .footer-bottom { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="shell">
+      <span>Serving travellers with care since <strong>2004</strong></span>
+      <div class="topbar-right"><span>Gahana Pokhari, Kathmandu</span><a href="mailto:Travelmuskan@gmail.com">Travelmuskan@gmail.com</a></div>
+    </div>
+  </div>
+
+  <header class="nav-wrap">
+    <nav class="shell">
+      <a class="brand" href="#">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 16l6-6 4 4 3-3 5 5"/><path d="M8 6h.01"/><path d="M4 20h16"/></svg>
+        </span>
+        <span class="brand-name">Muskan Travels<small>ONE STOP FOR ALL TRAVEL NEEDS</small></span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#packages">Tours</a><a href="#services">Services</a><a href="#story">About</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <a class="nav-cta" href="#contact">Plan my trip <span>↗</span></a>
+        <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell hero-inner">
+        <div class="hero-copy reveal">
+          <div class="hero-kicker">Your world, thoughtfully arranged</div>
+          <h1>Travel farther.<br><em>Feel closer.</em></h1>
+          <p>From the Himalayas to the world, Muskan makes every journey easy—with trusted air ticketing, handpicked tours and personal support from Kathmandu.</p>
+          <div class="hero-buttons">
+            <a class="primary-btn" href="#packages">Explore journeys <span>→</span></a>
+            <a class="ghost-btn" href="tel:+9779851066313">Talk to an expert</a>
+          </div>
+          <div class="hero-trust">
+            <div class="avatar-stack">
+              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" alt="Traveller" />
+              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80" alt="Traveller" />
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Traveller" />
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="Traveller" />
+            </div>
+            <span><span class="stars">★★★★★</span><br />Trusted by travellers for 20+ years</span>
+          </div>
+        </div>
+
+        <div class="planner reveal">
+          <div class="planner-inner">
+            <div class="planner-top">
+              <strong>Where next?</strong>
+              <div class="service-tabs"><button class="service-tab active" data-service="flight">Flights</button><button class="service-tab" data-service="tour">Tours</button></div>
+            </div>
+            <div class="trip-type"><label><input type="radio" name="trip" checked /> Round trip</label><label><input type="radio" name="trip" /> One way</label><label><input type="radio" name="trip" /> Multi-city</label></div>
+            <div class="field-grid">
+              <div class="field"><label>From</label><input value="Kathmandu (KTM)" aria-label="From" /></div>
+              <div class="field"><label>To</label><input value="Dubai (DXB)" aria-label="To" /></div>
+              <div class="field"><label>Departure</label><input type="date" aria-label="Departure date" /></div>
+              <div class="field"><label>Travellers</label><select aria-label="Travellers"><option>1 traveller</option><option>2 travellers</option><option>Family / group</option></select></div>
+            </div>
+            <button class="search-btn" id="searchBtn">Check best options →</button>
+            <p class="planner-note">✓ No booking fee &nbsp; · &nbsp; Local expert support</p>
+          </div>
+          <div class="floating-card route-badge"><span>✈</span><div><strong>Global air ticketing</strong><small>Competitive fares, personal service</small></div></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="quick-bar shell reveal">
+      <div class="quick-inner">
+        <a class="quick-item" href="#packages"><span class="quick-icon">⌁</span><span><strong>Nepal journeys</strong><small>Culture, nature & adventure</small></span></a>
+        <a class="quick-item" href="#packages"><span class="quick-icon">◎</span><span><strong>International tours</strong><small>Curated holidays worldwide</small></span></a>
+        <a class="quick-item" href="#services"><span class="quick-icon">✈</span><span><strong>Air ticketing</strong><small>Domestic & international</small></span></a>
+        <a class="quick-item" href="#contact"><span class="quick-icon">☏</span><span><strong>Travel support</strong><small>Real people, ready to help</small></span></a>
+      </div>
+    </div>
+
+    <section class="section packages" id="packages">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div><span class="eyebrow">Handpicked escapes</span><h2>Journeys worth<br>remembering.</h2></div>
+          <p>Travel at your own pace with flexible itineraries, carefully selected stays and a Muskan expert beside you from idea to arrival.</p>
+        </div>
+        <div class="filter-row reveal">
+          <button class="filter-chip active" data-filter="all">All journeys</button><button class="filter-chip" data-filter="nepal">Discover Nepal</button><button class="filter-chip" data-filter="international">International</button><button class="filter-chip" data-filter="adventure">Adventure</button>
+        </div>
+        <div class="card-grid">
+          <article class="destination-card reveal" data-kind="nepal adventure">
+            <img src="https://images.unsplash.com/photo-1518002054494-3a6f94352e9d?auto=format&fit=crop&w=1000&q=86" alt="Annapurna mountain range" />
+            <span class="card-tag">Nepal · Adventure</span><button class="card-save" aria-label="Save Annapurna trip">♡</button>
+            <div class="card-body"><h3>Annapurna & Beyond</h3><div class="card-meta"><span>◷ 8 days</span><span>◉ Guided</span><span>★ 4.9</span></div><div class="card-bottom"><div class="price"><small>Customise your journey</small><strong>Ask for a quote</strong></div><a class="card-arrow" href="#contact">↗</a></div></div>
+          </article>
+          <article class="destination-card reveal" data-kind="international">
+            <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1000&q=86" alt="Dubai skyline" />
+            <span class="card-tag">International · City</span><button class="card-save" aria-label="Save Dubai trip">♡</button>
+            <div class="card-body"><h3>Dubai in Style</h3><div class="card-meta"><span>◷ 5 days</span><span>◉ Flights + stay</span><span>★ 4.8</span></div><div class="card-bottom"><div class="price"><small>Tailored for you</small><strong>Ask for a quote</strong></div><a class="card-arrow" href="#contact">↗</a></div></div>
+          </article>
+          <article class="destination-card reveal" data-kind="international">
+            <img src="https://images.unsplash.com/photo-1533669955142-6a73332af4db?auto=format&fit=crop&w=1000&q=86" alt="Tropical beach in Thailand" />
+            <span class="card-tag">International · Leisure</span><button class="card-save" aria-label="Save Thailand trip">♡</button>
+            <div class="card-body"><h3>Thailand, Unhurried</h3><div class="card-meta"><span>◷ 7 days</span><span>◉ Island escape</span><span>★ 4.9</span></div><div class="card-bottom"><div class="price"><small>Tailored for you</small><strong>Ask for a quote</strong></div><a class="card-arrow" href="#contact">↗</a></div></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section services" id="services">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div><span class="eyebrow">Everything, handled</span><h2>One travel partner.<br>Every detail.</h2></div>
+          <p>Simple, reliable travel planning backed by two decades of ticketing and tour expertise.</p>
+        </div>
+        <div class="service-grid">
+          <article class="service-card reveal"><span class="service-number">01</span><span class="service-icon">✈</span><h3>Worldwide air ticketing</h3><p>Competitive fares, route advice and responsive support before and after you fly.</p></article>
+          <article class="service-card reveal"><span class="service-number">02</span><span class="service-icon">⌖</span><h3>Inbound Nepal tours</h3><p>Meaningful cultural journeys, nature escapes, treks and group experiences.</p></article>
+          <article class="service-card reveal"><span class="service-number">03</span><span class="service-icon">◎</span><h3>International holidays</h3><p>Thoughtfully planned outbound tours, city breaks and family holidays worldwide.</p></article>
+          <article class="service-card reveal"><span class="service-number">04</span><span class="service-icon">◇</span><h3>Corporate & group travel</h3><p>Dependable travel management for businesses, delegations and special-interest groups.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="story">
+      <div class="shell story-grid">
+        <div class="story-image reveal">
+          <img src="https://images.unsplash.com/photo-1578802895347-b748e59a6c36?auto=format&fit=crop&w=1000&q=85" alt="Boudhanath stupa in Kathmandu" />
+          <img class="story-mini" src="https://images.unsplash.com/photo-1526711657229-e7e080ed7aa1?auto=format&fit=crop&w=600&q=85" alt="Himalayan landscape" />
+          <div class="year-badge"><div><strong>20+</strong><small>years of<br>trusted travel</small></div></div>
+        </div>
+        <div class="story-copy reveal">
+          <span class="eyebrow">Our story</span><h2>Travel with people who know the way.</h2>
+          <p>Muskan Travel & Tours was established in Kathmandu in June 2004. What began with a strong foundation in air ticketing has grown into a full-service travel company arranging inbound Nepal experiences and outbound journeys around the world.</p>
+          <p>We combine market knowledge with warm Nepali hospitality—so every traveller receives practical advice, fair value and professional support.</p>
+          <div class="feature-list">
+            <div class="feature"><span class="check">✓</span>Government registered</div><div class="feature"><span class="check">✓</span>NATTA member</div>
+            <div class="feature"><span class="check">✓</span>NTB affiliated</div><div class="feature"><span class="check">✓</span>SOTTO-Nepal member</div>
+          </div>
+          <a class="text-link" href="#contact">Meet your travel partner <span>→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="proof">
+      <div class="shell proof-grid reveal">
+        <h2>Experience you can travel on.</h2>
+        <div class="stat"><strong>20+</strong><small>Years serving travellers</small></div>
+        <div class="stat"><strong>2</strong><small>Ways to travel: inbound & outbound</small></div>
+        <div class="stat"><strong>24/7</strong><small>Support while travelling</small></div>
+      </div>
+    </section>
+
+    <section class="section testimonial" id="reviews">
+      <div class="shell quote-wrap">
+        <div class="quote-photo reveal"><img src="https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&w=900&q=85" alt="Friends travelling together" /></div>
+        <div class="reveal"><span class="eyebrow">Traveller stories</span><div class="quote-mark">“</div><p class="quote-text" id="quoteText">Muskan made the entire trip feel effortless—from finding the right flight to arranging every detail on the ground. We always knew someone was there to help.</p><div class="quote-person"><img id="quoteAvatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" alt="Traveller portrait" /><span><strong id="quoteName">Asha & family</strong><small id="quoteTrip">Kathmandu to Dubai</small></span></div><div class="quote-controls"><button class="round-btn" id="prevQuote" aria-label="Previous testimonial">←</button><button class="round-btn" id="nextQuote" aria-label="Next testimonial">→</button></div></div>
+      </div>
+    </section>
+
+    <section class="contact-band" id="contact">
+      <div class="shell contact-inner reveal">
+        <div class="contact-content"><h2>Have a journey in mind?<br>Let’s make it happen.</h2><div class="contact-buttons"><a class="whatsapp" href="https://wa.me/9779851066313">Chat on WhatsApp</a><a class="call" href="tel:+97714528318">Call 01-4528318</a></div></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-main">
+      <div><a class="brand" href="#"><span class="brand-mark">⌁</span><span class="brand-name">Muskan Travels<small>ONE STOP FOR ALL TRAVEL NEEDS</small></span></a><p class="footer-about">Trusted air ticketing, inbound Nepal tours and international holidays—with personal service from Kathmandu since 2004.</p></div>
+      <div><h3>Explore</h3><div class="footer-links"><a href="#packages">Nepal tours</a><a href="#packages">International tours</a><a href="#services">Air ticketing</a><a href="#story">About us</a></div></div>
+      <div><h3>Plan</h3><div class="footer-links"><a href="#contact">Request a quote</a><a href="#reviews">Traveller stories</a><a href="#contact">Travel support</a><a href="#contact">FAQs</a></div></div>
+      <div><h3>Get in touch</h3><div class="footer-contact"><span>Gahana Pokhari, Kathmandu, Nepal</span><a href="tel:+97714528318">01-4528318, 4526681</a><a href="tel:+9779851066313">+977-9851066313</a><a href="mailto:Travelmuskan@gmail.com">Travelmuskan@gmail.com</a></div></div>
+    </div>
+    <div class="shell footer-bottom"><span>© 2026 Muskan Travel & Tours Pvt. Ltd.</span><span class="mockup-note">Interactive design mockup · content adapted from the current Muskan Travels website</span></div>
+  </footer>
+
+  <div class="toast" id="toast">Thanks! An expert will help you compare the best options.</div>
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    menuBtn.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+    const toast = document.getElementById('toast');
+    document.getElementById('searchBtn').addEventListener('click', () => {
+      toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 3200);
+    });
+
+    document.querySelectorAll('.service-tab').forEach(tab => tab.addEventListener('click', () => {
+      document.querySelectorAll('.service-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const isTour = tab.dataset.service === 'tour';
+      document.querySelector('.trip-type').style.display = isTour ? 'none' : 'flex';
+      document.querySelectorAll('.field label')[0].textContent = isTour ? 'Travel style' : 'From';
+      document.querySelectorAll('.field input')[0].value = isTour ? 'Culture & discovery' : 'Kathmandu (KTM)';
+      document.querySelectorAll('.field label')[1].textContent = isTour ? 'Destination' : 'To';
+      document.querySelectorAll('.field input')[1].value = isTour ? 'Nepal or worldwide' : 'Dubai (DXB)';
+    }));
+
+    document.querySelectorAll('.filter-chip').forEach(chip => chip.addEventListener('click', () => {
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active')); chip.classList.add('active');
+      const filter = chip.dataset.filter;
+      document.querySelectorAll('.destination-card').forEach(card => {
+        card.style.display = filter === 'all' || card.dataset.kind.includes(filter) ? 'block' : 'none';
+      });
+    }));
+
+    document.querySelectorAll('.card-save').forEach(btn => btn.addEventListener('click', () => {
+      btn.classList.toggle('saved'); btn.textContent = btn.classList.contains('saved') ? '♥' : '♡';
+    }));
+
+    document.querySelectorAll('.destination-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        if (window.innerWidth < 800) return;
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - .5;
+        const y = (e.clientY - r.top) / r.height - .5;
+        card.style.transform = `rotateY(${x * 8}deg) rotateX(${-y * 8}deg)`;
+      });
+      card.addEventListener('mouseleave', () => card.style.transform = 'rotateY(0) rotateX(0)');
+    });
+
+    const quotes = [
+      ['Muskan made the entire trip feel effortless—from finding the right flight to arranging every detail on the ground. We always knew someone was there to help.', 'Asha & family', 'Kathmandu to Dubai', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80'],
+      ['The advice was honest, the communication was quick, and our Nepal itinerary felt personal—not like a standard package. That made all the difference.', 'Daniel K.', 'Kathmandu Valley & Pokhara', 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80'],
+      ['When our flight schedule changed, the team responded immediately and sorted everything out. This is the kind of support every traveller hopes for.', 'Mina Shrestha', 'International air ticketing', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80']
+    ];
+    let quoteIndex = 0;
+    function showQuote(index) {
+      quoteIndex = (index + quotes.length) % quotes.length;
+      const [text, name, trip, avatar] = quotes[quoteIndex];
+      document.getElementById('quoteText').textContent = text; document.getElementById('quoteName').textContent = name;
+      document.getElementById('quoteTrip').textContent = trip; document.getElementById('quoteAvatar').src = avatar;
+    }
+    document.getElementById('prevQuote').addEventListener('click', () => showQuote(quoteIndex - 1));
+    document.getElementById('nextQuote').addEventListener('click', () => showQuote(quoteIndex + 1));
+
+    const revealObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObserver.unobserve(entry.target); }
+    }), { threshold: .12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  </script>
+</body>
+</html>
