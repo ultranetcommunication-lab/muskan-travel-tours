@@ -47,7 +47,8 @@
   },
   "decisions": [
     "Use a clean vertical flight-results list matching the existing navy, teal and saffron identity.",
-    "Keep booking assisted through Muskan WhatsApp until passenger, payment and order flows are implemented."
+    "Collect selected-flight requests through a focused contact dialog and send them to Muskan's private admin workspace.",
+    "Use a compact operations dashboard with a five-stage request pipeline: new, contacted, quoted, confirmed and closed."
   ],
   "evidence": [],
   "generatedAt": "2026-10-03T04:52:41.086Z"

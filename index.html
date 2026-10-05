@@ -182,6 +182,34 @@
     .results-state a { color: var(--teal); font-weight: 800; }
     .skeleton-card { height: 132px; border-radius: 20px; background: linear-gradient(90deg,#fff 25%,#edf1ef 50%,#fff 75%); background-size: 200% 100%; animation: shimmer 1.3s infinite; }
     @keyframes shimmer { to { background-position: -200% 0; } }
+    .booking-dialog { width: min(590px, calc(100% - 28px)); max-height: calc(100vh - 36px); padding: 0; overflow: auto; border: 0; border-radius: 22px; color: var(--ink); background: #fff; box-shadow: 0 30px 90px rgba(2,24,36,.28); }
+    .booking-dialog::backdrop { background: rgba(3,25,37,.62); backdrop-filter: blur(4px); }
+    .booking-dialog-inner { padding: 28px; }
+    .dialog-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+    .dialog-head h2 { margin: 5px 0 8px; font-size: 36px; }
+    .dialog-head p { margin: 0; color: var(--muted); font-size: 13px; }
+    .dialog-close { width: 39px; height: 39px; flex: 0 0 39px; border: 1px solid var(--line); border-radius: 50%; color: var(--ink); background: #fff; font-size: 21px; cursor: pointer; }
+    .selected-flight { display: grid; grid-template-columns: 1fr auto; gap: 15px; margin: 22px 0; padding: 16px; border-radius: 14px; color: #fff; background: var(--navy); }
+    .selected-flight small { display: block; color: rgba(255,255,255,.65); font-size: 11px; }
+    .selected-flight strong { display: block; margin-top: 3px; }
+    .selected-flight .selected-price { text-align: right; }
+    .booking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+    .booking-field label { display: block; margin-bottom: 6px; font-size: 12px; font-weight: 800; }
+    .booking-field input, .booking-field textarea { width: 100%; padding: 12px 13px; border: 1px solid #dbe3e4; border-radius: 11px; color: var(--ink); background: #fff; outline: 0; }
+    .booking-field input:focus, .booking-field textarea:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(10,132,123,.11); }
+    .booking-field.full { grid-column: 1 / -1; }
+    .booking-field textarea { min-height: 88px; resize: vertical; }
+    .consent { display: flex; align-items: flex-start; gap: 9px; margin-top: 15px; color: var(--muted); font-size: 12px; }
+    .consent input { margin-top: 3px; accent-color: var(--teal); }
+    .submit-booking { width: 100%; margin-top: 18px; padding: 14px; border: 0; border-radius: 12px; color: #fff; background: var(--teal); font-weight: 800; cursor: pointer; }
+    .submit-booking:disabled { cursor: wait; opacity: .7; }
+    .booking-error { margin-top: 12px; padding: 11px 13px; border-radius: 10px; color: #9d3228; background: #fff0ee; font-size: 12px; }
+    .booking-success { padding: 45px 28px; text-align: center; }
+    .success-mark { width: 58px; height: 58px; display: grid; place-items: center; margin: 0 auto 17px; border-radius: 50%; color: #fff; background: var(--teal); font-size: 26px; }
+    .booking-success h2 { margin-bottom: 8px; }
+    .booking-success p { color: var(--muted); }
+    .booking-reference { display: inline-block; padding: 9px 13px; border-radius: 9px; color: var(--navy); background: #edf3f2; font-weight: 800; letter-spacing: .05em; }
+    .honeypot { position: absolute; left: -9999px; opacity: 0; pointer-events: none; }
 
     .packages { background: var(--paper); }
     .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin: -10px 0 30px; }
@@ -317,6 +345,11 @@
       .flight-slice { grid-template-columns: 62px 1fr 62px; }
       .fare { grid-column: auto; justify-content: space-between; }
       .results-meta { align-items: flex-start; flex-wrap: wrap; }
+      .booking-dialog-inner { padding: 23px 18px; }
+      .booking-grid { grid-template-columns: 1fr; }
+      .booking-field.full { grid-column: auto; }
+      .selected-flight { grid-template-columns: 1fr; }
+      .selected-flight .selected-price { text-align: left; }
     }
   </style>
 </head>
@@ -498,6 +531,25 @@
     <div class="shell footer-bottom"><span>© 2026 Muskan Travel & Tours Pvt. Ltd.</span><span>Gahana Pokhari, Kathmandu, Nepal</span></div>
   </footer>
 
+  <dialog class="booking-dialog" id="bookingDialog" aria-labelledby="bookingTitle">
+    <div class="booking-dialog-inner" id="bookingDialogContent">
+      <div class="dialog-head"><div><span class="eyebrow">Booking request</span><h2 id="bookingTitle">Ask Muskan to book</h2><p>Send this fare to our travel team. We will confirm availability and contact you before ticketing.</p></div><button class="dialog-close" id="closeBooking" type="button" aria-label="Close booking form">×</button></div>
+      <div class="selected-flight" id="selectedFlight"></div>
+      <form id="bookingForm">
+        <div class="booking-grid">
+          <div class="booking-field"><label for="customerName">Full name</label><input id="customerName" name="name" autocomplete="name" maxlength="100" required></div>
+          <div class="booking-field"><label for="customerPhone">Phone / WhatsApp</label><input id="customerPhone" name="phone" type="tel" autocomplete="tel" maxlength="24" required></div>
+          <div class="booking-field full"><label for="customerEmail">Email <span style="color:var(--muted);font-weight:500">(optional)</span></label><input id="customerEmail" name="email" type="email" autocomplete="email"></div>
+          <div class="booking-field full"><label for="customerMessage">Message <span style="color:var(--muted);font-weight:500">(optional)</span></label><textarea id="customerMessage" name="message" maxlength="1000" placeholder="Preferred contact time or any special request"></textarea></div>
+          <div class="honeypot" aria-hidden="true"><label for="company">Company</label><input id="company" name="company" tabindex="-1" autocomplete="off"></div>
+        </div>
+        <label class="consent"><input type="checkbox" required><span>I agree that Muskan Travel & Tours may contact me about this flight request. This is a request, not a confirmed booking.</span></label>
+        <div class="booking-error" id="bookingError" hidden></div>
+        <button class="submit-booking" id="submitBooking" type="submit">Send request to Muskan</button>
+      </form>
+    </div>
+  </dialog>
+
   <div class="toast" id="toast" role="status"></div>
   <script>
     const menuBtn = document.getElementById('menuBtn');
@@ -529,12 +581,16 @@
     const departureDate = document.getElementById('departureDate');
     const returnDate = document.getElementById('returnDate');
     const returnField = document.getElementById('returnField');
+    const bookingDialog = document.getElementById('bookingDialog');
+    const bookingForm = document.getElementById('bookingForm');
+    const bookingDialogContent = document.getElementById('bookingDialogContent');
     const apiBase = location.hostname.endsWith('github.io') || location.hostname.endsWith('chatgpt.site')
       ? 'https://muskan.technica.com.np/'
       : '';
     let currentService = 'flight';
     let currentOffers = [];
     let currentSearch = null;
+    let selectedOffer = null;
 
     const today = new Date();
     const localDate = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
@@ -610,7 +666,7 @@
           const stops = Math.max(0, slice.segments.length - 1);
           return `<div class="flight-slice"><div class="flight-time"><strong>${localTime(slice.departing_at)}</strong><small>${escapeHtml(slice.origin)} · ${localDay(slice.departing_at)}</small></div><div class="route-line"><span>${durationText(slice.duration_minutes)}</span><div class="route-rule"></div><span>${stops ? `${stops} stop${stops > 1 ? 's' : ''}` : 'Direct'}</span></div><div class="flight-time" style="text-align:right"><strong>${localTime(slice.arriving_at)}</strong><small>${escapeHtml(slice.destination)} · ${localDay(slice.arriving_at)}</small></div></div>`;
         }).join('');
-        return `<article class="flight-card"><div class="airline"><span class="airline-logo">${escapeHtml(initials)}</span><span><strong>${escapeHtml(airline.name || 'Airline')}</strong><small>${escapeHtml(offer.flight_numbers.join(' · '))}${offer.baggage ? ` · ${escapeHtml(offer.baggage)}` : ''}</small></span></div><div class="slice-list">${slices}</div><div class="fare"><span><small>Total for ${currentSearch.adults} adult${currentSearch.adults > 1 ? 's' : ''}</small><strong>${money(offer.total_amount, offer.total_currency)}</strong></span><button class="choose-fare" type="button" data-offer-id="${escapeHtml(offer.id)}">Request this fare</button></div></article>`;
+        return `<article class="flight-card"><div class="airline"><span class="airline-logo">${escapeHtml(initials)}</span><span><strong>${escapeHtml(airline.name || 'Airline')}</strong><small>${escapeHtml(offer.flight_numbers.join(' · '))}${offer.baggage ? ` · ${escapeHtml(offer.baggage)}` : ''}</small></span></div><div class="slice-list">${slices}</div><div class="fare"><span><small>Total for ${currentSearch.adults} adult${currentSearch.adults > 1 ? 's' : ''}</small><strong>${money(offer.total_amount, offer.total_currency)}</strong></span><button class="choose-fare" type="button" data-offer-id="${escapeHtml(offer.id)}">Request booking</button></div></article>`;
       }).join('');
       resultsList.querySelectorAll('.choose-fare').forEach(button => button.addEventListener('click', () => recheckOffer(button)));
     };
@@ -618,23 +674,50 @@
       const original = button.textContent;
       button.disabled = true;
       button.textContent = 'Rechecking…';
-      const popup = window.open('', '_blank');
       try {
         const response = await fetch(`${apiBase}api/offer.php?id=${encodeURIComponent(button.dataset.offerId)}`, { headers: { 'Accept': 'application/json' } });
         const payload = await response.json();
         if (!response.ok) throw new Error(payload.message || 'This fare is no longer available.');
-        const offer = payload.offer;
-        const route = offer.slices.map(slice => `${slice.origin}-${slice.destination}`).join(' / ');
-        const message = `Hello Muskan Travels, I found a current flight option on your website.%0A%0ARoute: ${route}%0ADate: ${currentSearch.departure_date}%0AAirline: ${offer.airline.name}%0AFare: ${money(offer.total_amount, offer.total_currency)}%0AReference: ${offer.id}%0A%0APlease help me confirm and book this fare.`;
-        const url = `https://wa.me/9779851066313?text=${encodeURIComponent(decodeURIComponent(message))}`;
-        if (popup) popup.location = url; else window.location.href = url;
+        selectedOffer = payload.offer;
+        const route = selectedOffer.slices.map(slice => `${slice.origin} → ${slice.destination}`).join(' · ');
+        document.getElementById('selectedFlight').innerHTML = `<div><small>Selected flight</small><strong>${escapeHtml(route)}</strong><small>${escapeHtml(selectedOffer.airline.name)} · ${escapeHtml(selectedOffer.flight_numbers.join(' · '))}</small></div><div class="selected-price"><small>Current total</small><strong>${money(selectedOffer.total_amount, selectedOffer.total_currency)}</strong></div>`;
+        document.getElementById('bookingError').hidden = true;
+        bookingDialog.showModal();
       } catch (error) {
-        if (popup) popup.close();
         showToast(error.message);
+      } finally {
         button.disabled = false;
         button.textContent = original;
       }
     };
+    document.getElementById('closeBooking').addEventListener('click', () => bookingDialog.close());
+    bookingDialog.addEventListener('click', event => {
+      if (event.target === bookingDialog) bookingDialog.close();
+    });
+    bookingForm.addEventListener('submit', async event => {
+      event.preventDefault();
+      if (!selectedOffer || !currentSearch) return;
+      const submit = document.getElementById('submitBooking');
+      const errorBox = document.getElementById('bookingError');
+      const data = new FormData(bookingForm);
+      submit.disabled = true;
+      submit.textContent = 'Sending securely…';
+      errorBox.hidden = true;
+      try {
+        const response = await fetch(`${apiBase}api/booking-requests.php`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ offer_id: selectedOffer.id, search: currentSearch, name: data.get('name'), phone: data.get('phone'), email: data.get('email'), message: data.get('message'), company: data.get('company') })
+        });
+        const payload = await response.json();
+        if (!response.ok) throw new Error(payload.message || 'Your request could not be sent.');
+        bookingDialogContent.innerHTML = `<div class="booking-success"><div class="success-mark">✓</div><h2>Request received</h2><p>Muskan’s travel team will check the fare and contact you. Keep this reference for follow-up.</p><span class="booking-reference">${escapeHtml(payload.reference)}</span><button class="submit-booking" type="button" onclick="location.reload()">Done</button></div>`;
+      } catch (error) {
+        errorBox.textContent = error.message;
+        errorBox.hidden = false;
+        submit.disabled = false;
+        submit.textContent = 'Send request to Muskan';
+      }
+    });
     sortResults.addEventListener('change', renderOffers);
 
     form.addEventListener('submit', async event => {
